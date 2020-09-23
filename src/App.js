@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+
+
+const initialCounters = [
+    {id: 1, title: 'Green', count: 5},
+    {id: 2, title: 'Pink', count: 50},
+    {id: 3, title: 'Orange', count: 20}
+]
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [counter, setCounters] = useState(initialCounters);
+
+    const deleteById = (id) =>  {
+       console.log(id);
+       const filterOfCounter = counter.filter(el => el.id !== id );
+        setCounters(filterOfCounter);
+    }
+
+    return (
+        <div>
+            counters
+
+            <ul>
+
+                {counter.map(el => <li key={el.id}>  {el.title}
+                    <button>-</button>
+                    {el.count}
+                    <button>+</button>
+                    <button onClick={ () => deleteById(el.id)}>delete</button>
+                </li>)}
+
+            </ul>
+
+            <input type="text" placeholder= "Counter title"/>
+            <input type="text" placeholder = "Counter value"/>
+            <button>Add counter</button>
+
+        </div>
+    );
 }
 
 export default App;
