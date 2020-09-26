@@ -45,19 +45,39 @@ function App() {
             if(index === i) return {...el, count: value, editInput: !el.editInput};
             return el;
         })
-        setList(newInputCounter);
-
+        setList(newInputCounter)
     }
+
+    const inputCancel = (index) => {
+        const cancelInput = list.map((el, i) => {
+            if(index === i) return  {...el, editInput: !el.editInput }
+            return el;
+        })
+        setList(cancelInput);
+    }
+
+    const addCounter =(inputTitle, inputCounterValue) => {
+        const newElement  = {
+            id: Math.random(),
+            title : inputTitle ,
+            count: inputCounterValue,
+            editInput: false
+        }
+        const newList = [...list];
+        newList.push(newElement);
+        setList(newList);
+    }
+
 
     return (
 
         <div>
 
             <div>
-                <Controller/>
+                <Controller addCounter={addCounter}/>
             </div>
 
-       <List list={list} key={Math.random()} swapCounter={swapCounter} inputButtonSet={inputButtonSet} inputCounter={inputCounter} />
+       <List list={list} key={Math.random()} swapCounter={swapCounter} inputButtonSet={inputButtonSet} inputCounter={inputCounter} inputCancel={inputCancel}/>
 
         </div>
 
